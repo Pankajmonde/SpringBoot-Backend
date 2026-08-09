@@ -1,7 +1,7 @@
-package controller;
+package com.example.controller;
 
 import org.springframework.stereotype.Controller;
-import service.UserService;
+import com.example.service.UserService;
 
 import java.util.List;
 

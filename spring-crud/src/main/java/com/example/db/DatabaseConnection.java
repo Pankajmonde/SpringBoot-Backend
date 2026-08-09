@@ -1,11 +1,11 @@
-package db;
+package com.example.db;
 
-import org.springframework.stereotype.Component;
+
 
 
 import java.util.ArrayList;
 import java.util.List;
-@Component
+
 public class DatabaseConnection {
     private List<String> users;
 

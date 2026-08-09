@@ -1,7 +1,7 @@
-package service;
+package com.example.service;
 
 import org.springframework.stereotype.Service;
-import repository.UserRepository;
+import com.example.repository.UserRepository;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class UserService {
         userRepository.save(name);
 
     }
-    public List<String> getAlluser(){
+    public List<String> getAllUsers(){
         return userRepository.findAll();
 
     }
