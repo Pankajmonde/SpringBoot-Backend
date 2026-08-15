@@ -72,17 +72,23 @@ public class UserController {
         return  ResponseEntity.ok(userDb.get(id));
     }
        // /search?name=pankaj
-    @GetMapping("/search")
-    public ResponseEntity<List<User>> searchUsers
-    (@RequestParam(required = false, defaultValue = "lily") String name)
-    (@RequestParam(required = false, defaultValue = "email") String email)
-    {
-        System.out.println(name);
-        List<User>users=userDb.values().stream()
-                .filter(u -> u.getName().equalsIgnoreCase(name))
-                .filter(u -> u.getEmail().equalsIgnoreCase(email))
-                .toList();
-        return  ResponseEntity.ok(users);
+       @GetMapping("/search")
+       public ResponseEntity<List<User>> searchUsers(
+               @RequestParam(required = false, defaultValue = "lily") String name,
+               @RequestParam(required = false, defaultValue = "email") String email
+       ) {
+           System.out.println(name);
+
+           List<User> users = userDb.values().stream()
+                   .filter(u -> u.getName().equalsIgnoreCase(name))
+                   .filter(u -> u.getEmail().equalsIgnoreCase(email))
+                   .toList();
+
+           return ResponseEntity.ok(users);
+       }
+    @GetMapping("/info")
+    public String getInfo(@RequestHeader ("User-Agent") String userAgent) {
+        return "User Agent:"+userAgent;
     }
 }
 
