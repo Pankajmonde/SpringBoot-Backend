@@ -86,9 +86,15 @@ public class UserController {
 
            return ResponseEntity.ok(users);
        }
-    @GetMapping("/info")
-    public String getInfo(@RequestHeader ("User-Agent") String userAgent) {
-        return "User Agent:"+userAgent;
+    @GetMapping("/info/{id}")
+
+    public String getInfo(
+            @PathVariable int id,
+            @RequestParam String name,
+            @RequestHeader ("User-Agent") String userAgent) {
+        return "User Agent:"+userAgent
+                + "  : "+id
+                + "  : "+name;
     }
 }
 
