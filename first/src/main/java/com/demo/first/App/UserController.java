@@ -1,8 +1,10 @@
 package com.demo.first.App;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,5 +51,39 @@ public class UserController {
     @GetMapping
     public List<User> getUser(){
         return new ArrayList<>(userDb.values());
+
+    }
+    //  /user/100, user/400 . user/1
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getUser(@PathVariable(value ="userId", required = false)  int id){
+        if(!userDb.containsKey(id))
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return  ResponseEntity.ok(userDb.get(id));
+    }
+
+    @GetMapping("/{userId}/orders/{orderId}")
+    public ResponseEntity<User> getUser(
+            @PathVariable("userId")  int id,
+            @PathVariable int orderId
+    ){
+        System.out.println("Order id"+orderId);
+        if(!userDb.containsKey(id))
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return  ResponseEntity.ok(userDb.get(id));
+    }
+       // /search?name=pankaj
+    @GetMapping("/search")
+    public ResponseEntity<List<User>> searchUsers
+    (@RequestParam(required = false, defaultValue = "lily") String name)
+    (@RequestParam(required = false, defaultValue = "email") String email)
+    {
+        System.out.println(name);
+        List<User>users=userDb.values().stream()
+                .filter(u -> u.getName().equalsIgnoreCase(name))
+                .filter(u -> u.getEmail().equalsIgnoreCase(email))
+                .toList();
+        return  ResponseEntity.ok(users);
     }
 }
+
+
