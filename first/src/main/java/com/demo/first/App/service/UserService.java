@@ -2,6 +2,10 @@ package com.demo.first.App.service;
 
 
 import com.demo.first.App.Model.User;
+import com.demo.first.App.controller.UserController;
+import com.demo.first.App.exceptions.UserNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,8 +16,12 @@ import java.util.Map;
 @Service
 public class UserService {
     private Map<Integer, User> userDb = new HashMap<>();
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public User createUser(User user) {
+        logger.info("Creating user........info");
+        logger.debug("Creting user  ....Debug");
+        logger.trace("Creting user  ....trace");
         System.out.println(user.getEmail());
         userDb.putIfAbsent(user.getId(), user);
         return user;
@@ -21,10 +29,12 @@ public class UserService {
     }
 
     public User updateuser(User user) {
-        if(!userDb.containsKey(user.getId()))
-            throw new IllegalArgumentException("user with id "+ user.getId()+"does not exist");
+        if (!userDb.containsKey(user.getId())) {
+            logger.error("error when finding user with id {}", user.getId());
+            throw new UserNotFoundException("user with id " + user.getId() + "does not exist");
 
-        userDb.put(user.getId(),user);
+        }
+           userDb.put(user.getId(),user);
         return  user;
     }
 

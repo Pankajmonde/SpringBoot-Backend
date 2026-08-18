@@ -3,6 +3,7 @@ package com.demo.first.App.controller;
 
 import com.demo.first.App.Model.User;
 import com.demo.first.App.service.UserService;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.Map;
 public class UserController {
 
     private UserService userService =new UserService();
+
 
 
 
