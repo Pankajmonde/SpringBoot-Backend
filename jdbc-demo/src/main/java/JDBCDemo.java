@@ -47,11 +47,17 @@ public class JDBCDemo {
     }
 
     private static void updateStudent(Connection conn, int id, String name, String email) {
-        String sql = "UPDATE STUDENT SET NAME = '" + name +
-                "', EMAIL = '" + email +
-                "' WHERE ID = " + id;
-        try (Statement stmt = conn.createStatement()) {
-            int rows = stmt.executeUpdate(sql);
+
+        String sql = "UPDATE STUDENT SET NAME = ?, EMAIL = ? WHERE ID = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, name);
+            stmt.setString(2, email);
+            stmt.setInt(3, id);
+
+            int rows = stmt.executeUpdate();
+
             System.out.println("updated " + rows);
 
         } catch (SQLException e) {
