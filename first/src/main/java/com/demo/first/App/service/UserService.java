@@ -2,7 +2,6 @@ package com.demo.first.App.service;
 
 
 import com.demo.first.App.Model.User;
-import com.demo.first.App.controller.UserController;
 import com.demo.first.App.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
